@@ -142,6 +142,17 @@ class App extends Component {
     this.setState({ data: data})
   }
 
+
+  deleteMessage = (e) => {
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].selected === true) {
+        this.state.data.splice(i, 1)
+      }
+    }
+    let data = this.state.data
+    this.setState({ data: data})
+  }
+
   render() {
     return (
       <div className="App">
@@ -151,6 +162,7 @@ class App extends Component {
         data = {this.state.data} 
         markAsRead = {this.markAsRead}
         markAsUnread = {this.markAsUnread}
+        deleteMessage = {this.deleteMessage}
         />
         <MessageList 
         data = {this.state.data} 
