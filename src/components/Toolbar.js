@@ -39,7 +39,7 @@ class Toolbar extends React.Component {
 
           <button onClick = {this.props.markAsUnread}className="btn btn-default">Mark As Unread</button>
 
-          <select className="form-control label-select">
+          <select className="form-control label-select" onChange = {this.props.applyLabel}>
             <option>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

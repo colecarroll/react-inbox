@@ -153,6 +153,24 @@ class App extends Component {
     this.setState({ data: data})
   }
 
+  applyLabel = (e) => {
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].selected === true) {
+        if (e.target.value !== 'Apply label') { 
+          var labelsArr =this.state.data[i].labels
+          var label = e.target.value
+          if (labelsArr.indexOf(label) === -1) {
+              labelsArr.push(label) 
+          }
+        }
+      }
+    }
+    let data = this.state.data
+    this.setState({ data: data})
+  }
+
+
+
   render() {
     return (
       <div className="App">
@@ -163,6 +181,7 @@ class App extends Component {
         markAsRead = {this.markAsRead}
         markAsUnread = {this.markAsUnread}
         deleteMessage = {this.deleteMessage}
+        applyLabel = {this.applyLabel}
         />
         <MessageList 
         data = {this.state.data} 
