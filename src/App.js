@@ -105,7 +105,7 @@ class App extends Component {
  selectAll = (e) => {
     for (var i = 0; i < this.state.data.length; i++){ 
       this.state.data[i].selected = true
-      let data = this.state.messages
+      let data = this.state.data
       }
       this.setState({ data: data})
   }
@@ -113,11 +113,22 @@ class App extends Component {
   deselectAll = (e) => {
     for (var i = 0; i < this.state.data.length; i++){ 
       this.state.data[i].selected = false
-      let data = this.state.messages
+      let data = this.state.data
       }
       this.setState({ data: data})
   }
 
+  markAsRead = (e) => {
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].selected === true) {
+        if (this.state.data[i].read === false) {
+          this.state.data[i].read = true
+        }
+      }
+    }
+    let data = this.state.data
+    this.setState({ data: data})
+  }
 
   render() {
     return (
@@ -126,6 +137,7 @@ class App extends Component {
         selectAll= {this.selectAll} 
         deselectAll = {this.deselectAll}
         data = {this.state.data} 
+        markAsRead = {this.markAsRead}
         />
         <MessageList 
         data = {this.state.data} 
