@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MessageList from './components/MessageList'
-import Message from './components/Message'
 import Toolbar from './components/Toolbar'
 
-const messages =
+const data =
 [
   {
     "id": 1,
@@ -68,13 +67,66 @@ const messages =
 ]
 
 
+
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: data
+    }
+    
+    
+    for (var i = 0; i < data.length; i++) {
+      data[i].selected = false
+     }
+
+    this.selectAll = this.selectAll.bind(this)
+  }
+
+  handleStarred = (i) => {
+    let newData = this.state.data
+    newData[i].starred = !newData[i].starred
+    this.setState({data: newData})
+  }
+
+  handleSelected = (i) => {
+    let newData = this.state.data
+    newData[i].selected = !newData[i].selected
+    this.setState({data: newData})
+  }
+
+  handleRead = (i) => {
+    let newData = this.state.data
+    newData[i].read = true
+    this.setState({data: newData})
+  }
+
+ selectAll = (e) => {
+    for (var i = 0; i < this.state.messages.length; i++) { 
+      if (!this.state.messages[i].selected) {
+        this.state.messages[i].selected = true
+      }
+      var newMessages = this.state.messages
+      this.setState(prevState => (
+        {
+        messages: newMessages
+      }
+    ))
+    }
+  }
+
+
   render() {
     return (
       <div className="App">
-        <Toolbar />
-        <MessageList messages = {messages} />
-        {/* <Message> */}
+        <Toolbar selectAll= {this.selectAll} />
+        <MessageList 
+        data = {this.state.data} 
+        toggleStar = {this.handleStarred}
+        handleSelected = {this.handleSelected}
+        handleRead = {this.handleRead}
+        />
       </div>
     );
   }
