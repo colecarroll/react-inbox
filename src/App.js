@@ -130,6 +130,18 @@ class App extends Component {
     this.setState({ data: data})
   }
 
+  markAsUnread = (e) => {
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].selected === true) {
+        if (this.state.data[i].read === true) {
+          this.state.data[i].read = false
+        }
+      }
+    }
+    let data = this.state.data
+    this.setState({ data: data})
+  }
+
   render() {
     return (
       <div className="App">
@@ -138,6 +150,7 @@ class App extends Component {
         deselectAll = {this.deselectAll}
         data = {this.state.data} 
         markAsRead = {this.markAsRead}
+        markAsUnread = {this.markAsUnread}
         />
         <MessageList 
         data = {this.state.data} 
