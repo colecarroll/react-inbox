@@ -103,24 +103,30 @@ class App extends Component {
   }
 
  selectAll = (e) => {
-    for (var i = 0; i < this.state.messages.length; i++) { 
-      if (!this.state.messages[i].selected) {
-        this.state.messages[i].selected = true
+    for (var i = 0; i < this.state.data.length; i++){ 
+      this.state.data[i].selected = true
+      let data = this.state.messages
       }
-      var newMessages = this.state.messages
-      this.setState(prevState => (
-        {
-        messages: newMessages
+      this.setState({ data: data})
+  }
+
+  deselectAll = (e) => {
+    for (var i = 0; i < this.state.data.length; i++){ 
+      this.state.data[i].selected = false
+      let data = this.state.messages
       }
-    ))
-    }
+      this.setState({ data: data})
   }
 
 
   render() {
     return (
       <div className="App">
-        <Toolbar selectAll= {this.selectAll} />
+        <Toolbar 
+        selectAll= {this.selectAll} 
+        deselectAll = {this.deselectAll}
+        data = {this.state.data} 
+        />
         <MessageList 
         data = {this.state.data} 
         toggleStar = {this.handleStarred}

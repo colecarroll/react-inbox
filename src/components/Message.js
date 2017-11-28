@@ -6,45 +6,7 @@ class Message extends React.Component {
     super(props);
    
   }
-
-  // handleClick() {
-  //   this.setState(prevState => ({
-  //     selected: !prevState.selected,
-  //   }));
-  // }
-
-
-  // setStar() {
-  //   this.setState(prevState => ({
-  //     starred: !prevState.starred
-  //   }))
-  // }
-
-  // determineClassName() {
-  //   var classMessage= "row message" 
-  //   if (this.props.read === false) {
-  //     classMessage += " unread"
-  //   }
-  //   else {
-  //     classMessage += " read"
-  //   }
-    
-  //   if (this.props.selected === true) {
-  //     classMessage += " selected"
-  //   }
-   
-  //   return classMessage
-  // }
-
-  // markRead(){
-  //   if (this.props.read === false) {
-  //     console.log(this.props)
-  //     this.props.read = true
-  //   }
-    
-  // }
   
-
 
   render() {
 
