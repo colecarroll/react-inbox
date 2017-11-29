@@ -120,8 +120,17 @@ class App extends Component {
   }
 
   handleRead = (i) => {
+    var patchUpdate = {
+      "messageIds": [],
+      "command": "read",
+      "read": false
+    }
     let newData = this.state.data
     newData[i].read = true
+    patchUpdate.messageIds.push(newData[i].id)
+    var read = newData[i].read 
+    patchUpdate.read = read
+    this.patchItem(patchUpdate)
     this.setState({data: newData})
   }
 
@@ -150,6 +159,19 @@ class App extends Component {
       }
     }
     let data = this.state.data
+    var patchUpdate = {
+      "messageIds": [],
+      "command": "read",
+      "read": false
+    }
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].selected) {
+      data[i].read = true
+      patchUpdate.messageIds.push(data[i].id)
+      patchUpdate.read = true
+      }
+    }
+    this.patchItem(patchUpdate)
     this.setState({ data: data})
   }
 
@@ -162,6 +184,19 @@ class App extends Component {
       }
     }
     let data = this.state.data
+    var patchUpdate = {
+      "messageIds": [],
+      "command": "read",
+      "read": false
+    }
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].selected) {
+      data[i].read = false
+      patchUpdate.messageIds.push(data[i].id)
+      patchUpdate.read = false
+      }
+    }
+    this.patchItem(patchUpdate)
     this.setState({ data: data})
   }
 
