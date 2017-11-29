@@ -261,7 +261,15 @@ class App extends Component {
         if (e.target.value !== 'Remove label') { 
           var labelsArr =this.state.data[i].labels
           var label = e.target.value
-             labelsArr.splice(labelsArr.indexOf(label)) 
+             labelsArr.splice(labelsArr.indexOf(label))
+             var patchUpdate = {
+              "messageIds": [],
+              "command": "removeLabel",
+              "label" : ""
+            } 
+            patchUpdate.messageIds.push(this.state.data[i].id)
+            patchUpdate.label = label
+            this.patchItem(patchUpdate) 
         }
       }
     }
