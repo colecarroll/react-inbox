@@ -96,6 +96,17 @@ class App extends Component {
         }
       })
     }
+
+    async deleteItem(item) {
+      const response = await fetch('https://hypermedia-api-server.herokuapp.com/api/messages', {
+        method: 'PATCH',
+        body: JSON.stringify(item),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      })
+    }
   
 
   handleStarred = (i) => {
@@ -204,12 +215,20 @@ class App extends Component {
   deleteMessage = (e) => {
     for (var i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].selected === true) {
+        var patchUpdate = {
+          "messageIds": [],
+          "command": "delete"
+        }
+        patchUpdate.messageIds.push(this.state.data[i].id)
+        this.patchItem(patchUpdate)
         this.state.data.splice(i, 1)
+        
       }
+      }
+      let data = this.state.data
+      this.setState({ data: data})
     }
-    let data = this.state.data
-    this.setState({ data: data})
-  }
+  
 
   applyLabel = (e) => {
     for (var i = 0; i < this.state.data.length; i++) {
