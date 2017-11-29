@@ -238,7 +238,15 @@ class App extends Component {
           var labelsArr =this.state.data[i].labels
           var label = e.target.value
           if (labelsArr.indexOf(label) === -1) {
-              labelsArr.push(label) 
+              labelsArr.push(label)
+              var patchUpdate = {
+                "messageIds": [],
+                "command": "addLabel",
+                "label" : ""
+              } 
+              patchUpdate.messageIds.push(this.state.data[i].id)
+              patchUpdate.label = label
+              this.patchItem(patchUpdate)
           }
         }
       }
