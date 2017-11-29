@@ -12,6 +12,7 @@ const MessageList = (props) => {
         onStar = {() => props.toggleStar(props.data.indexOf(message))}
         onSelect = {() => props.handleSelected(props.data.indexOf(message))}
         onRead = { () =>props.handleRead(props.data.indexOf(message))}
+        selected = {message.selected}
     />
     ))}
     </div>
