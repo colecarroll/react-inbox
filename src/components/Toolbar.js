@@ -10,15 +10,18 @@ class Toolbar extends React.Component {
   render() {
 
   
+    
+    
    for (var i = 0; i < this.props.data.length; i++ ) {
       if (!this.props.data[i].selected) {
         var manageClick = this.props.selectAll
       }
-      else {
+      else  {
         var manageClick = this.props.deselectAll
-      }
+      } 
     }
 
+   
   
 
     return (
@@ -34,7 +37,7 @@ class Toolbar extends React.Component {
           </a>
 
           <button onClick= {manageClick} className="btn btn-default">
-            <i className="fa fa-minus-square-o"></i>
+            <i className={this.props.messagesSelectedButton()} ></i>
           </button>
 
           <button onClick = {this.props.markAsRead} className="btn btn-default">Mark As Read</button>

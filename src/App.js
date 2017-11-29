@@ -194,6 +194,25 @@ class App extends Component {
     return unreadCount
    }
 
+   messagesSelectedButton = () => {
+     var count = 0
+     for (var i = 0; i < this.state.data.length; i++) {
+       if (this.state.data[i].selected) {
+         count++
+       }
+     }
+     if (count === this.state.data.length) {
+      return "fa fa-check-square-o"
+     }
+     else if (count === 0) {
+       return "fa fa-square-o"
+     }
+     else {
+       return "fa fa-minus-square-o"
+     }
+     console.log(count)
+   }
+
   render() {
     return (
       <div className="App">
@@ -207,6 +226,7 @@ class App extends Component {
         applyLabel = {this.applyLabel}
         removeLabel = {this.removeLabel}
         unreadCount = {this.unreadCount}
+        messagesSelectedButton = {this.messagesSelectedButton}
         />
         <MessageList 
         data = {this.state.data} 
