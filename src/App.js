@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
+import ComposeForm from './components/ComposeForm'
 
 const data =
 [
@@ -10,7 +11,7 @@ const data =
     "id": 1,
     "subject": "You can't input the protocol without calculating the mobile RSS protocol!",
     "read": false,
-    "starred": true,
+    "starred": false,
     "labels": ["dev", "personal"]
   },
   {
@@ -62,7 +63,7 @@ const data =
     "subject": "If we connect the sensor, we can get to the HDD port through the redundant IB firewall!",
     "read": true,
     "starred": true,
-    "labels": []
+    "labels": ["dev", "gschool"]
   }
 ]
 
@@ -75,18 +76,40 @@ class App extends Component {
     this.state = {
       data: data
     }
-    
-    
     for (var i = 0; i < data.length; i++) {
       data[i].selected = false
      }
-
-    this.selectAll = this.selectAll.bind(this)
   }
+    async componentDidMount() {
+      const response = await fetch('https://hypermedia-api-server.herokuapp.com/api/messages')
+      const json = await response.json()
+      this.setState({data: json._embedded.messages})
+    }
+    
+    async patchItem(item) {
+      const response = await fetch('https://hypermedia-api-server.herokuapp.com/api/messages', {
+        method: 'PATCH',
+        body: JSON.stringify(item),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      })
+    }
+  
 
   handleStarred = (i) => {
+    var patchUpdate = {
+      "messageIds": [],
+      "command": "star",
+      "star": false
+    }
     let newData = this.state.data
     newData[i].starred = !newData[i].starred
+    patchUpdate.messageIds.push(newData[i].id)
+    var starred = newData[i].starred
+    patchUpdate.star = starred
+    this.patchItem(patchUpdate)
     this.setState({data: newData})
   }
 
@@ -228,6 +251,7 @@ class App extends Component {
         unreadCount = {this.unreadCount}
         messagesSelectedButton = {this.messagesSelectedButton}
         />
+        <ComposeForm />
         <MessageList 
         data = {this.state.data} 
         toggleStar = {this.handleStarred}
