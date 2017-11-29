@@ -46,7 +46,7 @@ class Toolbar extends React.Component {
             <option value="gschool">gschool</option>
           </select>
 
-          <select className="form-control label-select">
+          <select className="form-control label-select" onChange = {this.props.removeLabel}>
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

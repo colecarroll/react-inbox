@@ -169,7 +169,19 @@ class App extends Component {
     this.setState({ data: data})
   }
 
-
+  removeLabel = (e) => {
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].selected === true) {
+        if (e.target.value !== 'Remove label') { 
+          var labelsArr =this.state.data[i].labels
+          var label = e.target.value
+             labelsArr.splice(labelsArr.indexOf(label)) 
+        }
+      }
+    }
+    let data = this.state.data
+    this.setState({ data: data})
+  }
 
   render() {
     return (
@@ -182,6 +194,7 @@ class App extends Component {
         markAsUnread = {this.markAsUnread}
         deleteMessage = {this.deleteMessage}
         applyLabel = {this.applyLabel}
+        removeLabel = {this.removeLabel}
         />
         <MessageList 
         data = {this.state.data} 
