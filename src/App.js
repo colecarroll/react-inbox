@@ -74,7 +74,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: data
+      data: data,
+      compose: false
     }
     for (var i = 0; i < data.length; i++) {
       data[i].selected = false
@@ -97,15 +98,16 @@ class App extends Component {
       })
     }
 
-    async deleteItem(item) {
+    async createItem(item) {
       const response = await fetch('https://hypermedia-api-server.herokuapp.com/api/messages', {
-        method: 'PATCH',
+        method: 'POST',
         body: JSON.stringify(item),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         }
       })
+      this.componentDidMount()
     }
   
 
@@ -115,13 +117,11 @@ class App extends Component {
       "command": "star",
       "star": false
     }
-    console.log(patchUpdate.star)
     let newData = this.state.data
     newData[i].starred = !newData[i].starred
     patchUpdate.messageIds.push(newData[i].id)
     var starred = newData[i].starred
     patchUpdate.star = starred
-    console.log(patchUpdate.star)
     this.patchItem(patchUpdate)
     this.setState({data: newData})
   }
@@ -304,13 +304,30 @@ class App extends Component {
      else {
        return "fa fa-minus-square-o"
      }
-     console.log(count)
    }
+
+   submitMessage(e) {
+    e.preventDefault();
+    let composedData = {
+      subject: e.target.subject.value,
+      body: e.target.body.value,
+    }
+    this.createItem(composedData)
+  }
+
+  toggleCompose(e) {
+    if (this.state.compose === true) {
+      this.setState({compose: false})
+    } else {
+      this.setState({compose: true})
+    }
+  }
 
   render() {
     return (
       <div className="App">
         <Toolbar 
+        toggleCompose={this.toggleCompose.bind(this)}
         selectAll= {this.selectAll} 
         deselectAll = {this.deselectAll}
         data = {this.state.data} 
@@ -322,7 +339,8 @@ class App extends Component {
         unreadCount = {this.unreadCount}
         messagesSelectedButton = {this.messagesSelectedButton}
         />
-        <ComposeForm />
+        {this.state.compose ? <ComposeForm submitMessage={this.submitMessage.bind(this)}
+        /> : null}
         <MessageList 
         data = {this.state.data} 
         toggleStar = {this.handleStarred}

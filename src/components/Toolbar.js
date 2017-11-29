@@ -32,7 +32,7 @@ class Toolbar extends React.Component {
             unread messages
           </p>
 
-          <a className="btn btn-danger">
+          <a className="btn btn-danger" onClick={this.props.toggleCompose.bind(this)}>
             <i className="fa fa-plus"></i>
           </a>
 
