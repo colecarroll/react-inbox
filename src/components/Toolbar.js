@@ -7,7 +7,7 @@ class Toolbar extends React.Component {
   }
 
 
-  render () {
+  render() {
 
   
    for (var i = 0; i < this.props.data.length; i++ ) {
@@ -19,11 +19,13 @@ class Toolbar extends React.Component {
       }
     }
 
+  
+
     return (
       <div className="row toolbar">
         <div className="col-md-12">
           <p className="pull-right">
-            <span className="badge badge">2</span>
+            <span className="badge badge">{this.props.unreadCount()}</span>
             unread messages
           </p>
 

@@ -183,6 +183,17 @@ class App extends Component {
     this.setState({ data: data})
   }
 
+   //unread message count
+   unreadCount = () => {
+    var unreadCount = 0
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (!this.state.data[i].read) {
+        unreadCount++
+      }
+    }
+    return unreadCount
+   }
+
   render() {
     return (
       <div className="App">
@@ -195,6 +206,7 @@ class App extends Component {
         deleteMessage = {this.deleteMessage}
         applyLabel = {this.applyLabel}
         removeLabel = {this.removeLabel}
+        unreadCount = {this.unreadCount}
         />
         <MessageList 
         data = {this.state.data} 
