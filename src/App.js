@@ -115,11 +115,13 @@ class App extends Component {
       "command": "star",
       "star": false
     }
+    console.log(patchUpdate.star)
     let newData = this.state.data
     newData[i].starred = !newData[i].starred
     patchUpdate.messageIds.push(newData[i].id)
     var starred = newData[i].starred
     patchUpdate.star = starred
+    console.log(patchUpdate.star)
     this.patchItem(patchUpdate)
     this.setState({data: newData})
   }
@@ -221,9 +223,8 @@ class App extends Component {
         }
         patchUpdate.messageIds.push(this.state.data[i].id)
         this.patchItem(patchUpdate)
-        this.state.data.splice(i, 1)
-        
-      }
+        this.state.data.splice(i, 1) 
+        }
       }
       let data = this.state.data
       this.setState({ data: data})

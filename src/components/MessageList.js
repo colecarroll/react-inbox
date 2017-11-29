@@ -9,9 +9,9 @@ const MessageList = (props) => {
       <Message 
         key= {message.id}
         message = {message}
-        onStar = {() => props.toggleStar(message.id-1)}
-        onSelect = {() => props.handleSelected(message.id-1)}
-        onRead = { () =>props.handleRead(message.id-1)}
+        onStar = {() => props.toggleStar(props.data.indexOf(message))}
+        onSelect = {() => props.handleSelected(props.data.indexOf(message))}
+        onRead = { () =>props.handleRead(props.data.indexOf(message))}
     />
     ))}
     </div>
